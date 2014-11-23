@@ -11,8 +11,10 @@ class GameScreen(object):
 		self.quit_game = False
 		self.gameMenu = True
 		self.howToPlayMenu = False
+		self.startGame = False
 		self.menuScreenPic = pygame.image.load("res/MenuScreen.png")
 		self.howToPlayPic = pygame.image.load("res/how to play.png")
+		self.gamePlayBG = pygame.image.load("res/background.png")
 
 	#Initialize Screen
 	def __game_init(self):
@@ -36,12 +38,21 @@ class GameScreen(object):
 			if self.gameMenu == True:
 				self.gameMenu_Screen()
 
+			if self.howToPlayMenu == True:
+				self.howToPlay_Screen()
+
+			if self.startGame == True:
+				self.gamePlay()
+
+			if pygame.key.get_pressed()[K_1]:
+				self.gameMenu = False
+				self.howToPlayMenu = False
+				self.startGame = True
+
 			if pygame.key.get_pressed()[K_2]:
 				self.gameMenu = False
 				self.howToPlayMenu = True
-			
-			if self.howToPlayMenu == True:
-				self.howToPlay_Screen()
+				self.startGame = False
 
 			if pygame.key.get_pressed()[K_3]:
 				self.terminate()
@@ -73,7 +84,10 @@ class GameScreen(object):
 		textrect.centerx = self.surface.get_rect().centerx
 		textrect.centery = self.surface.get_rect().centery - 150
 		self.surface.blit(howtoplaytext, textrect)
-		
+
+	def gamePlay(self):
+		self.surface.blit(self.gamePlayBG,(0,0))
+
 
 	def init(self):
 		self.__game_init()
