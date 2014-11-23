@@ -8,8 +8,11 @@ class GameScreen(object):
 		self.window_size = window_size
 		self.fps = fps
 		self.background_color = background_color
-		self.is_terminated = False
-		self.BG = pygame.image.load("res/MenuScreen.png")
+		self.quit_game = False
+		self.gameMenu = True
+		self.howToPlayMenu = False
+		self.menuScreenPic = pygame.image.load("res/MenuScreen.png")
+		self.howToPlayPic = pygame.image.load("res/how to play.png")
 
 	#Initialize Screen
 	def __game_init(self):
@@ -19,29 +22,35 @@ class GameScreen(object):
 		pygame.display.set_caption(self.title)
 		self.font = pygame.font.SysFont("monospace", 20)
 
-	def __handle_events(self):
-		for event in pygame.event.get():
-			if event.type == QUIT:
-				self.terminate()
-
 	def terminate(self):
-		self.is_terminated = True
+		self.quit_game = True
 
 	def run(self):
 		self.init()
-		while not self.is_terminated:
+		while not self.quit_game:
 			self.__handle_events()
 
 			self.update()
 
 			self.surface.fill(self.background_color)
-			self.gameMenu()
+			if self.gameMenu == True:
+				self.gameMenu_Screen()
+
+			if pygame.key.get_pressed()[K_2]:
+				self.gameMenu = False
+				self.howToPlayMenu = True
+			
+			if self.howToPlayMenu == True:
+				self.howToPlay_Screen()
+
+			if pygame.key.get_pressed()[K_3]:
+				self.terminate()
 			pygame.display.update()
 
 			self.clock.tick(self.fps)
 
-	def gameMenu(self):
-		self.surface.blit(self.BG,(0,0))
+	def gameMenu_Screen(self):
+		self.surface.blit(self.menuScreenPic,(0,0))
 		font = pygame.font.Font(None, 80)
 		mygametext = font.render("Kill xx More", True, (255, 0, 0))
 		textrect = mygametext.get_rect()
@@ -56,6 +65,16 @@ class GameScreen(object):
 		self.surface.blit(menutext_how_to_play, (textrect.centerx - 100, textrect.centery + 140))
 		self.surface.blit(menutext_Exit, (textrect.centerx - 100, textrect.centery + 180))
 
+	def howToPlay_Screen(self):
+		self.surface.blit(self.howToPlayPic,(0,0))
+		font = pygame.font.Font(None, 64)
+		howtoplaytext = font.render("How To Play", True, (0, 255, 0))
+		textrect = howtoplaytext.get_rect()
+		textrect.centerx = self.surface.get_rect().centerx
+		textrect.centery = self.surface.get_rect().centery - 150
+		self.surface.blit(howtoplaytext, textrect)
+		
+
 	def init(self):
 		self.__game_init()
 
@@ -64,3 +83,9 @@ class GameScreen(object):
 
 	def update(self):
 		pass
+
+	def __handle_events(self):
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				self.terminate()
+
