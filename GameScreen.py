@@ -11,6 +11,7 @@ class GameScreen(object):
 		self.is_terminated = False
 		self.BG = pygame.image.load("res/MenuScreen.png")
 
+	#Initialize Screen
 	def __game_init(self):
 		pygame.init()
 		self.clock = pygame.time.Clock()
@@ -34,10 +35,26 @@ class GameScreen(object):
 			self.update()
 
 			self.surface.fill(self.background_color)
-			self.surface.blit(self.BG,(0,0))
+			self.gameMenu()
 			pygame.display.update()
 
 			self.clock.tick(self.fps)
+
+	def gameMenu(self):
+		self.surface.blit(self.BG,(0,0))
+		font = pygame.font.Font(None, 80)
+		mygametext = font.render("Kill xx More", True, (255, 0, 0))
+		textrect = mygametext.get_rect()
+		textrect.centerx = self.surface.get_rect().centerx
+		textrect.centery = self.surface.get_rect().centery - 150
+		self.surface.blit(mygametext, textrect)
+		font = pygame.font.Font(None, 40)
+		menutext_start = font.render("1. Start Game", True, (255, 0, 0))
+		menutext_how_to_play = font.render("2. How To Play", True, (255, 0, 0))
+		menutext_Exit = font.render("3. Exit Game", True, (255, 0, 0))
+		self.surface.blit(menutext_start, (textrect.centerx - 100, textrect.centery + 100))
+		self.surface.blit(menutext_how_to_play, (textrect.centerx - 100, textrect.centery + 140))
+		self.surface.blit(menutext_Exit, (textrect.centerx - 100, textrect.centery + 180))
 
 	def init(self):
 		self.__game_init()
