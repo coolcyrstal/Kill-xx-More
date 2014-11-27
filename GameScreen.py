@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 
+from Player import Player
+
 class GameScreen(object):
 
 	def __init__(self, title, background_color, window_size = (1280,720), fps = 60):
@@ -15,6 +17,7 @@ class GameScreen(object):
 		self.menuScreenPic = pygame.image.load("res/MenuScreen.png")
 		self.howToPlayPic = pygame.image.load("res/how to play.png")
 		self.gamePlayBG = pygame.image.load("res/background.png")
+		
 
 	#Initialize Screen
 	def __game_init(self):
@@ -23,6 +26,7 @@ class GameScreen(object):
 		self.surface = pygame.display.set_mode(self.window_size)
 		pygame.display.set_caption(self.title)
 		self.font = pygame.font.SysFont("monospace", 20)
+		self.player = Player(self.surface)
 
 	def terminate(self):
 		self.quit_game = True
@@ -31,34 +35,37 @@ class GameScreen(object):
 		self.init()
 		while not self.quit_game:
 			self.__handle_events()
-
-			self.update()
-
 			self.surface.fill(self.background_color)
-			if self.gameMenu == True:
-				self.gameMenu_Screen()
-
-			if self.howToPlayMenu == True:
-				self.howToPlay_Screen()
-
+			self.gameMenuSelection()
 			if self.startGame == True:
-				self.gamePlay()
+				self.player.render()
+				self.player.update()
 
-			if pygame.key.get_pressed()[K_1]:
-				self.gameMenu = False
-				self.howToPlayMenu = False
-				self.startGame = True
-
-			if pygame.key.get_pressed()[K_2]:
-				self.gameMenu = False
-				self.howToPlayMenu = True
-				self.startGame = False
-
-			if pygame.key.get_pressed()[K_3]:
-				self.terminate()
 			pygame.display.update()
-
 			self.clock.tick(self.fps)
+
+	def gameMenuSelection(self):
+		if self.gameMenu == True:
+			self.gameMenu_Screen()
+
+		if self.howToPlayMenu == True:
+			self.howToPlay_Screen()
+
+		if self.startGame == True:
+			self.gamePlay()
+
+		if pygame.key.get_pressed()[K_1]:
+			self.gameMenu = False
+			self.howToPlayMenu = False
+			self.startGame = True
+
+		if pygame.key.get_pressed()[K_2]:
+			self.gameMenu = False
+			self.howToPlayMenu = True
+			self.startGame = False
+
+		if pygame.key.get_pressed()[K_3]:
+			self.terminate()
 
 	def gameMenu_Screen(self):
 		self.surface.blit(self.menuScreenPic,(0,0))
@@ -88,7 +95,6 @@ class GameScreen(object):
 	def gamePlay(self):
 		self.surface.blit(self.gamePlayBG,(0,0))
 
-
 	def init(self):
 		self.__game_init()
 
@@ -96,7 +102,8 @@ class GameScreen(object):
 		pass
 
 	def update(self):
-		pass
+		print "hello"
+		self.player.update()
 
 	def __handle_events(self):
 		for event in pygame.event.get():
