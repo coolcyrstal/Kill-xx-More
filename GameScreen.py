@@ -76,21 +76,20 @@ class GameScreen(object):
 		textrect.centery = self.surface.get_rect().centery - 150
 		self.surface.blit(mygametext, textrect)
 		font = pygame.font.Font(None, 40)
-		menutext_start = font.render("1. Start Game", True, (255, 0, 0))
-		menutext_how_to_play = font.render("2. How To Play", True, (255, 0, 0))
-		menutext_Exit = font.render("3. Exit Game", True, (255, 0, 0))
-		self.surface.blit(menutext_start, (textrect.centerx - 100, textrect.centery + 100))
-		self.surface.blit(menutext_how_to_play, (textrect.centerx - 100, textrect.centery + 140))
-		self.surface.blit(menutext_Exit, (textrect.centerx - 100, textrect.centery + 180))
+		self.surface.blit(font.render("1. Start Game", True, (255, 0, 0)), (textrect.centerx - 100, textrect.centery + 100))
+		self.surface.blit(font.render("2. Control System", True, (255, 0, 0)), (textrect.centerx - 100, textrect.centery + 140))
+		self.surface.blit(font.render("3. Exit Game", True, (255, 0, 0)), (textrect.centerx - 100, textrect.centery + 180))
 
 	def howToPlay_Screen(self):
 		self.surface.blit(self.howToPlayPic,(0,0))
 		font = pygame.font.Font(None, 64)
-		howtoplaytext = font.render("How To Play", True, (0, 255, 0))
+		howtoplaytext = font.render("Control System", True, (0, 255, 0))
 		textrect = howtoplaytext.get_rect()
 		textrect.centerx = self.surface.get_rect().centerx
 		textrect.centery = self.surface.get_rect().centery - 150
 		self.surface.blit(howtoplaytext, textrect)
+		font = pygame.font.Font(None, 32)
+		self.surface.blit(font.render("Button Z <-> X : rifle <-> gatling", True, (0, 255, 0)), (500, 400))
 
 	def gamePlay(self):
 		self.surface.blit(self.gamePlayBG,(0,0))
