@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 
 from Player import Player
+from enemy import Enemy
 
 class GameScreen(object):
 
@@ -27,6 +28,7 @@ class GameScreen(object):
 		pygame.display.set_caption(self.title)
 		self.font = pygame.font.SysFont("monospace", 20)
 		self.player = Player(self.surface)
+		self.enemy = Enemy(self.surface)
 
 	def terminate(self):
 		self.quit_game = True
@@ -42,6 +44,8 @@ class GameScreen(object):
 				self.player.render()
 				self.player.update()
 				self.score_Show()
+				self.enemy.render()
+				self.enemy.update()
 
 			pygame.display.update()
 			self.clock.tick(self.fps)

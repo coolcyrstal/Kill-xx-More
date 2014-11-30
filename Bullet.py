@@ -13,7 +13,7 @@ class Bullet(object):
 		self.surface.blit(self.bullet, (self.bullet_posx, self.bullet_posy))
 
 	def move(self):
-		self.bullet_posx += 20
+		self.bullet_posx += 50
 
 	def check_bullet(self):
 		if self.bullet_posx >= 1280:
