@@ -43,3 +43,7 @@ class Player(object):
 		if self.fire_bullet == True:
 			self.bullet.render()
 			self.bullet.move()
+		else:
+			self.bullet.bullet_posx = 480
+		if self.bullet.check_bullet() == True:
+			self.fire_bullet = False
