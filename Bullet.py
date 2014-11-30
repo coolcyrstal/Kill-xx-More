@@ -13,4 +13,7 @@ class Bullet(object):
 		self.surface.blit(self.bullet, (self.bullet_posx, self.bullet_posy))
 
 	def move(self):
-		pass
+		self.bullet_posx += 5
+
+	def check(self):
+		

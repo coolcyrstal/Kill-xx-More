@@ -17,7 +17,7 @@ class GameScreen(object):
 		self.menuScreenPic = pygame.image.load("res/MenuScreen.png")
 		self.howToPlayPic = pygame.image.load("res/how to play.png")
 		self.gamePlayBG = pygame.image.load("res/background.png")
-		
+		self.score = 0
 
 	#Initialize Screen
 	def __game_init(self):
@@ -31,6 +31,7 @@ class GameScreen(object):
 	def terminate(self):
 		self.quit_game = True
 
+	#Run Game Screen
 	def run(self):
 		self.init()
 		while not self.quit_game:
@@ -40,6 +41,7 @@ class GameScreen(object):
 			if self.startGame == True:
 				self.player.render()
 				self.player.update()
+				self.score_Show()
 
 			pygame.display.update()
 			self.clock.tick(self.fps)
@@ -89,10 +91,15 @@ class GameScreen(object):
 		textrect.centery = self.surface.get_rect().centery - 150
 		self.surface.blit(howtoplaytext, textrect)
 		font = pygame.font.Font(None, 32)
-		self.surface.blit(font.render("Button Z <-> X : rifle <-> gatling", True, (0, 255, 0)), (500, 400))
+		self.surface.blit(font.render("Button Z <-> X : rifle <-> gatling", True, (0, 255, 0)), (textrect.centerx - 150, textrect.centery + 100))
 
 	def gamePlay(self):
 		self.surface.blit(self.gamePlayBG,(0,0))
+
+	def score_Show(self):
+		font = pygame.font.Font(None, 32)
+		score_render = font.render("score : " + str(self.score), True, (255, 0, 0))
+		self.surface.blit(score_render, (1000, 50))
 
 	def init(self):
 		self.__game_init()

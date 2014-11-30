@@ -14,6 +14,7 @@ class Player(object):
 		self.player_posy = 400
 		self.check_change_gun = 1
 		self.check = False
+		self.fire_bullet = False
 
 	def render(self):
 		self.surface.blit(self.player,(self.player_posx, 720 - self.player_posy))
@@ -38,4 +39,7 @@ class Player(object):
 
 	def fire(self):
 		if pygame.key.get_pressed()[K_SPACE]:
+			self.fire_bullet = True
+		if self.fire_bullet == True:
 			self.bullet.render()
+			self.bullet.move()
