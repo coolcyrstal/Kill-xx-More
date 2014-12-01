@@ -14,7 +14,8 @@ class Enemy(object):
 		self.surface.blit(self.alien, (self.alien_posx, self.alien_posy))
 
 	def move(self):
-		self.alien_posx -= 5
+		if self.check_alien() == False:
+			self.alien_posx -= 5
 
 	def update(self):
 		self.move()
@@ -22,7 +23,7 @@ class Enemy(object):
 			self.alien_posx = 1300
 
 	def check_alien(self):
-		if self.alien_posx <= -300:
+		if self.alien_posx < 400:
 			return True
 		else:
 			return False
