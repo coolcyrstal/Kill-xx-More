@@ -79,6 +79,7 @@ class GameScreen(object):
 
 		if self.startGame == True:
 			self.gamePlay()
+			self.init_value()
 
 		if pygame.key.get_pressed()[K_1]:
 			self.gameMenu = False
@@ -125,10 +126,15 @@ class GameScreen(object):
 		self.surface.blit(self.gamePlayBG,(0,0))
 		self.surface.blit(self.hp_player_pic, (50, 20))
 
+	def init_value(self):
+		self.hp_player = 7
+		self.score = 0
+
 	def score_Show(self):
 		font = pygame.font.Font(None, 32)
 		score_render = font.render("score : " + str(self.score), True, (255, 0, 0))
 		self.surface.blit(score_render, (1000, 50))
+		self.score += self.player.fire_True()
 
 	def init(self):
 		self.__game_init()

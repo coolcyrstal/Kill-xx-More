@@ -42,10 +42,19 @@ class Player(object):
 	def fire(self):
 		if pygame.key.get_pressed()[K_SPACE]:
 			self.fire_bullet = True
+
 		if self.fire_bullet == True:
 			self.bullet.render()
 			self.bullet.move()
 		else:
 			self.bullet.bullet_posx = 480
+
 		if self.bullet.check_bullet() == True:
 			self.fire_bullet = False
+
+	def fire_True(self):
+		if self.bullet.check_fire_alien():
+			self.fire_bullet = False
+			return 1
+		else:
+			return 0

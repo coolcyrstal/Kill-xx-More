@@ -29,3 +29,6 @@ class Enemy(object):
 	def warp(self):
 		if self.check_alien() == True:
 			self.alien_posx = 1300
+
+	def get_alien_posx(self):
+		return self.alien_posx
