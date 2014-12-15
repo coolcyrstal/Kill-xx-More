@@ -18,6 +18,7 @@ class GameScreen(object):
 		self.menuScreenPic = pygame.image.load("res/MenuScreen.png")
 		self.howToPlayPic = pygame.image.load("res/how to play.png")
 		self.gamePlayBG = pygame.image.load("res/background.png")
+		self.gameOverPic = pygame.image.load("res/gameover.png")
 		self.score = 0
 		self.hp_player = 7
 		self.hp_player_pic = pygame.image.load("res/hp_player" + str(self.hp_player) + ".png")
@@ -47,6 +48,7 @@ class GameScreen(object):
 				self.player.update()
 				self.enemy.update()
 				self.damage()
+				self.check_gameOver()
 
 			pygame.display.update()
 			self.clock.tick(self.fps)
@@ -117,7 +119,7 @@ class GameScreen(object):
 		self.surface.blit(font.render("Button Spacebar : fire", True, (0, 255, 0)), (textrect.centerx - 150, textrect.centery + 140))
 
 	def gameOverState(self):
-		pass
+		self.surface.blit(self.gameOverPic,(0,0))
 
 	def gamePlay(self):
 		self.surface.blit(self.gamePlayBG,(0,0))
