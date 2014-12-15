@@ -19,6 +19,8 @@ class GameScreen(object):
 		self.howToPlayPic = pygame.image.load("res/how to play.png")
 		self.gamePlayBG = pygame.image.load("res/background.png")
 		self.score = 0
+		self.hp_player = 7
+		self.hp_player_pic = pygame.image.load("res/hp_player" + str(self.hp_player) + ".png")
 
 	#Initialize Screen
 	def __game_init(self):
@@ -41,14 +43,30 @@ class GameScreen(object):
 			self.surface.fill(self.background_color)
 			self.gameMenuSelection()
 			if self.startGame == True:
-				self.player.render()
+				self.show_ETC()
 				self.player.update()
-				self.score_Show()
-				self.enemy.render()
 				self.enemy.update()
+				self.damage()
 
 			pygame.display.update()
 			self.clock.tick(self.fps)
+
+	def show_ETC(self):
+		self.player.render()
+		self.enemy.render()
+		self.score_Show()
+
+	def damage(self):
+		if self.enemy.check_alien() == True:
+			self.hp_player -= 1
+			self.enemy.warp()
+			self.hp_player_pic = pygame.image.load("res/hp_player" + str(self.hp_player) + ".png")
+
+	def check_gameOver(self):
+		if self.hp_player <= 0:
+			self.hp_player = 0
+			self.gameOverState()
+
 
 	def gameMenuSelection(self):
 		if self.gameMenu == True:
@@ -96,9 +114,14 @@ class GameScreen(object):
 		self.surface.blit(howtoplaytext, textrect)
 		font = pygame.font.Font(None, 32)
 		self.surface.blit(font.render("Button Z <-> X : rifle <-> gatling", True, (0, 255, 0)), (textrect.centerx - 150, textrect.centery + 100))
+		self.surface.blit(font.render("Button Spacebar : fire", True, (0, 255, 0)), (textrect.centerx - 150, textrect.centery + 140))
+
+	def gameOverState(self):
+		pass
 
 	def gamePlay(self):
 		self.surface.blit(self.gamePlayBG,(0,0))
+		self.surface.blit(self.hp_player_pic, (50, 20))
 
 	def score_Show(self):
 		font = pygame.font.Font(None, 32)

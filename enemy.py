@@ -19,11 +19,13 @@ class Enemy(object):
 
 	def update(self):
 		self.move()
-		if self.check_alien() == True:
-			self.alien_posx = 1300
 
 	def check_alien(self):
 		if self.alien_posx < 400:
 			return True
 		else:
 			return False
+
+	def warp(self):
+		if self.check_alien() == True:
+			self.alien_posx = 1300

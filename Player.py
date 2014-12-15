@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 
 from Bullet import Bullet
-from enemy import Enemy
 
 class Player(object):
 
@@ -16,15 +15,12 @@ class Player(object):
 		self.check_change_gun = 1
 		self.check = False
 		self.fire_bullet = False
-		self.hp_player = 7
-		self.hp_player_pic = pygame.image.load("res/hp_player" + str(self.hp_player) + ".png")
-		self.enemy = Enemy(self.surface)
+		
 
 	def render(self):
 		self.surface.blit(self.player,(self.player_posx, 720 - self.player_posy))
 		if self.check == True:
 			self.player = pygame.image.load("res/player gunner" + str(self.gun_type) + ".png")
-		self.surface.blit(self.hp_player_pic, (self.player_posx - 50, 20))
 		
 
 	def change_weapon(self):
@@ -41,7 +37,7 @@ class Player(object):
 		else:
 			self.check = False
 		self.fire()
-		self.damage()
+		
 
 	def fire(self):
 		if pygame.key.get_pressed()[K_SPACE]:
@@ -53,14 +49,3 @@ class Player(object):
 			self.bullet.bullet_posx = 480
 		if self.bullet.check_bullet() == True:
 			self.fire_bullet = False
-
-	def damage(self):
-		if self.enemy.check_alien() == True:
-			print "gg"
-			self.hp_player -= 1
-
-	def check_player_dead(self):
-		if self.hp_player <= 0:
-			return True
-		else:
-			return False
