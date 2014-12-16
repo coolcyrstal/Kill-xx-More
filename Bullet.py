@@ -25,7 +25,8 @@ class Bullet(object):
 			return False
 
 	def check_fire_alien(self):
-		if (self.bullet_posx <= self.alien.get_alien_posx() + 2) or (self.bullet_posx >= self.alien.get_alien_posx() - 2):
+		if (self.bullet_posx + 50 <= self.alien.get_alien_posx() + 50) and (self.bullet_posx + 25 >= self.alien.get_alien_posx()):
+			print self.bullet_posx + 45
 			return True
 		else:
 			return False

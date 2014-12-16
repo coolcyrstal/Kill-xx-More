@@ -19,6 +19,7 @@ class Enemy(object):
 
 	def update(self):
 		self.move()
+		self.get_alien_posx()
 
 	def check_alien(self):
 		if self.alien_posx < 400:

@@ -55,6 +55,6 @@ class Player(object):
 	def fire_True(self):
 		if self.bullet.check_fire_alien():
 			self.fire_bullet = False
-			return 1
+			return 50
 		else:
 			return 0
