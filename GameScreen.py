@@ -134,7 +134,22 @@ class GameScreen(object):
 		font = pygame.font.Font(None, 32)
 		score_render = font.render("score : " + str(self.score), True, (255, 0, 0))
 		self.surface.blit(score_render, (1000, 50))
-		self.score += self.player.fire_True()
+		self.score += self.fire_True()
+
+	def fire_True(self):
+		if self.check_fire_alien():
+			self.fire_bullet = False
+			print "ggg"
+			return 50
+		else:
+			return 0
+
+	def check_fire_alien(self):
+		if (self.player.bullet_posx + 50 <= self.enemy.alien_posx + 50) and (self.player.bullet_posx + 25 >= self.enemy.alien_posx):
+			print self.player.bullet_posx + 45, "|||||"
+			return True
+		else:
+			return False
 
 	def init(self):
 		self.__game_init()

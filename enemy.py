@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 
+
 class Enemy(object):
 
 	def __init__(self, surface):
@@ -19,7 +20,6 @@ class Enemy(object):
 
 	def update(self):
 		self.move()
-		self.get_alien_posx()
 
 	def check_alien(self):
 		if self.alien_posx < 400:
@@ -30,6 +30,3 @@ class Enemy(object):
 	def warp(self):
 		if self.check_alien() == True:
 			self.alien_posx = 1300
-
-	def get_alien_posx(self):
-		return self.alien_posx

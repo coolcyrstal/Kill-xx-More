@@ -15,6 +15,7 @@ class Player(object):
 		self.check_change_gun = 1
 		self.check = False
 		self.fire_bullet = False
+		self.bullet_posx = 480
 		
 
 	def render(self):
@@ -37,6 +38,7 @@ class Player(object):
 		else:
 			self.check = False
 		self.fire()
+		self.bullet_posx = self.bullet.bullet_posx
 		
 
 	def fire(self):
@@ -51,10 +53,3 @@ class Player(object):
 
 		if self.bullet.check_bullet() == True:
 			self.fire_bullet = False
-
-	def fire_True(self):
-		if self.bullet.check_fire_alien():
-			self.fire_bullet = False
-			return 50
-		else:
-			return 0
