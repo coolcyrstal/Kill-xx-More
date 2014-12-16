@@ -49,6 +49,7 @@ class GameScreen(object):
 				self.enemy.update()
 				self.damage()
 				self.check_gameOver()
+				print self.score
 
 			pygame.display.update()
 			self.clock.tick(self.fps)
@@ -128,25 +129,23 @@ class GameScreen(object):
 
 	def init_value(self):
 		self.hp_player = 7
-		self.score = 0
+		#self.score = 0
 
 	def score_Show(self):
 		font = pygame.font.Font(None, 32)
+		self.fire_True()
 		score_render = font.render("score : " + str(self.score), True, (255, 0, 0))
 		self.surface.blit(score_render, (1000, 50))
-		self.score += self.fire_True()
+		
 
 	def fire_True(self):
 		if self.check_fire_alien():
 			self.fire_bullet = False
-			print "ggg"
-			return 50
-		else:
-			return 0
+			self.score += 50
 
 	def check_fire_alien(self):
 		if (self.player.bullet_posx + 50 <= self.enemy.alien_posx + 50) and (self.player.bullet_posx + 25 >= self.enemy.alien_posx):
-			print self.player.bullet_posx + 45, "|||||"
+			print self.player.bullet_posx, "|||||", self.enemy.alien_posx
 			return True
 		else:
 			return False
