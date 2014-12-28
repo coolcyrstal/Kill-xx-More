@@ -139,6 +139,7 @@ class GameScreen(object):
 
 	def check_fire_alien(self):
 		if (self.player.bullet_posx + 50 <= self.enemy.alien_posx + 50) and (self.player.bullet_posx + 25 >= self.enemy.alien_posx):
+			#self.enemy.alien_posx += 25
 			return True
 		else:
 			return False
